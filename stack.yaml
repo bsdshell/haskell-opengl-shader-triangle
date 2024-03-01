@@ -17,18 +17,11 @@
 #
 # resolver: ./custom-snapshot.yaml
 # resolver: https://example.com/snapshots/2018-01-01.yaml
-resolver: lts-13.28
+# ERROR: build error on Big Sur
+# resolver: lts-13.28
 
-
-# ghc 8.8.4, test ~/.local/bin/haskell-language-server
-# There is bug in Big Sur for following tls-16.7
-# resolver: lts-16.17
-
-
-# BUG: https://github.com/bsl/GLFW-b/issues/90
-# ghc 8.10.4, test ~/.local/bin/haskell-language-server
-# There is bug in Big Sur for following tls-16.7
-resolver: lts-17.4
+# ghc-8.10.3
+resolver: lts-17.2
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -59,36 +52,68 @@ packages:
 extra-deps:
 - wai-util-0.8
 - http-accept-0.2 
-# - bindings-GLFW-3.2.1.1
+- mini-egison-1.0.0
+# - egison-pattern-src-0.2.1.0
+# - egison-pattern-src-th-mode-0.2.1.0
+- FTGL-2.1
 - pretty-terminal-0.1.0.0
 - strict-io-0.2.2
+- ghci-websockets-0.0.2
 
-- bindings-GLFW-3.3.2.0
+- megaparsec-8.0.0
 - mysql-haskell-0.8.4.3
-- sqlite-simple-0.4.18.0
+#- prettyprinter-1.6.2
+- recursion-schemes-5.2.2.1
 - wai-predicates-1.0.0
 
-- direct-sqlite-2.3.26
+- active-0.2.0.15
+- dual-tree-0.2.3.0
+- monoid-extras-0.6
+# - prettyprinter-1.7.1
+- svg-builder-0.1.1
 - tcp-streams-1.0.1.1
+# - th-abstraction-0.3.2.0
 - wire-streams-0.1.1.0
+- th-abstraction-0.4.3.0
+- prettyprinter-1.7.1
+- newtype-generics-0.6
+- force-layout-0.4.0.6
+- bytestring-trie-0.2.5.2
 
-# Sun 16 Aug 00:16:23 2020 
-# OpenGL render text FTGL
-# http://hackage.haskell.org/package/FTGL-2.1/docs/Graphics-Rendering-FTGL.html
-- FTGL-2.1
+- juicy-draw-0.2.0.0
 
-# Sun 24 May 23:01:17 2020 
-# 
-# Following both packages are working currently
-# 
-# package GLFW-b 3.2.1.0
-# package bindings-GLFW-3.2.1.1
-# Checking packages:
-# stack ls dependencies
-# 
-# binding-GLFW-3.3.x does not work
-# See https://github.com/commercialhaskell/stackage/issues/4824 
-#     https://github.com/commercialhaskell/stackage/commit/e63b52cadfb5da1eada8e3185b49b66648ba79ea 
+- diagrams-1.4.0.1
+- diagrams-lib-1.4.4
+- diagrams-svg-1.4.3
+
+- diagrams-contrib-1.4.4
+- diagrams-core-1.5.0
+- orthotope-0.1.0.0
+- text-format-simple-1.1.0
+
+# - text-icu-0.7.1.0
+# Download the tar file: https://hackage.haskell.org/package/text-icu-0.7.1.0
+- archive: /Users/aaa/myfile/bitbucket/publicfile/haskell_package/text-icu-0.7.1.0.tar
+
+# KEY: haskell package
+# stack sdist
+
+# Fri 10 Mar 12:48:32 2023 
+# Fixed: Missing icu4, text-icu-0.7.1.0 when ghci is loading
+extra-include-dirs:
+- /usr/local/opt/icu4c/include
+
+extra-lib-dirs:
+- /usr/local/opt/icu4c/lib
+
+
+# - git: git@github.com:haskell/text-icu.git
+#  commit: 5451d335a6fd27ab3be99b1d2328bd89a8ce4a20 
+
+# Sun 26 Feb 13:50:19 2023 
+# Old vector-0.12.1.2 DOES NOT have generate function
+# v <- generate 4 (\x -> x * x) => ERROR
+# SEE: https://hackage.haskell.org/package/vector-0.12.1.2/docs/Data-Vector-Mutable.html 
 
 # flags: {}
 
@@ -108,7 +133,10 @@ extra-deps:
 #
 # Extra directories used by stack for building
 # extra-include-dirs: [/path/to/dir]
+# extra-include-dirs: [/usr/local/Cellar/icu4c/71.1/include]
+
 # extra-lib-dirs: [/path/to/dir]
+# extra-lib-dirs: [/usr/local/Cellar/icu4c/71.1/lib]
 #
 # Allow a newer minor version of GHC than the snapshot specifies
 # compiler-check: newer-minor

@@ -13,6 +13,7 @@ import Graphics.GL.Core33
 import Graphics.GL.Types
 -- raw-strings-qq
 import Text.RawString.QQ
+import AronModule
 
 winWidth = 800
 
@@ -194,8 +195,16 @@ main = bracketGLFW $ do
             (x,y) <- GLFW.getFramebufferSize window
             glViewport 0 0 (fromIntegral x) (fromIntegral y)
             
+            vertexStr <- readFile "./src/vertexshader.vert"
+            fragmentStr <- readFile "./src/fragmentshader.frag"
+            logFileG ["vertexStr"]
+            logFileG [vertexStr]
+
+            logFileG ["fragmentStr"]
+            logFileG [fragmentStr]
             -- ready and use our program
-            eErrP <- programFromSources vertexShaderSource fragmentShaderSource
+            -- eErrP <- programFromSources vertexShaderSource fragmentShaderSource
+            eErrP <- programFromSources vertexStr fragmentStr 
             shaderProgram <- case eErrP of
                 Left e -> putStrLn e >> return 0
                 Right p -> return p
