@@ -1,1 +1,1 @@
-# OpenGLGLFWSimple
+# Haskell OpenGL Shader Triangle 
